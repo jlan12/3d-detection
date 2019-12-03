@@ -1,21 +1,21 @@
 
 3D object detection 
 ===
-## Description
+## Description (TODO)
 
 ---
 ## Table of Content
 - [3D object detection](#3d-object-detection)
-  - [Description](#description)
+  - [Description (TODO)](#description-todo)
   - [Table of Content](#table-of-content)
   - [Dataset](#dataset)
   - [Prerequisites](#prerequisites)
   - [### System Requirements](#-system-requirements)
   - [### Necessary Packages and Libraries](#-necessary-packages-and-libraries)
-  - [Expected Directory Structure](#expected-directory-structure)
-  - [Training](#training)
-  - [Testing](#testing)
-  - [Result](#result)
+  - [Expected Directory Structure (TODO)](#expected-directory-structure-todo)
+  - [Training (TODO)](#training-todo)
+  - [Testing (TODO)](#testing-todo)
+  - [Result (TODO)](#result-todo)
 
 ---
 
@@ -69,7 +69,7 @@ KITII dataset: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
     ```
 
 ---
-## Expected Directory Structure
+## Expected Directory Structure (TODO)
 mmdetection
 ├── mmdet
 ├── tools
@@ -80,30 +80,10 @@ mmdetection
 │   │   ├── $path to images$
 
 ---
-## Training 
-
-The config file is located at configs/cascade_rcnn_x101_64x4d_fpn_1x_kitti.py
-
-The config file was modified to provide the following information:
-* bbox_head/num_classes=10, # kitti has 9 classes, so 9 + 1
-* img_norm_cfg=... # provide the mean and std of each channel in BGR format from the kitti data for normalization (use the script at ??? to get the mean and std)
-* imgs_per_gpu=4     # batch size for training 
-* workers_per_gpu=4  # match batch size
-* dataset_type = 'KittiDataset' # this refers to datasets/kitti.py
-* data_root = 'data/kitti/' # data directory, everything is relative to the mmdetection
-* ann_file=data_root + 'annotations/instances_runtrain.json', # path to the train labels in coco format
-* img_prefix= data_root + 'training/image_2', # path to the image directory
-
-optimizer = dict(type='SGD', lr=0.05, momentum=0.9, weight_decay=0.0001) #manually adjust to lower learning rate as it begins training begins to stagnate 
-
-Command line to start training:
-``` bash
-./tools/dist_train.sh configs/cascade_rcnn_x101_64x4d_fpn_1x_kitti.py ${GPU_NUM} --validate 
-```
-where ${GPU_NUM} is the number of gpus to train on.
+## Training (TODO)
 
 ---
-## Testing 
+## Testing (TODO)
 
 ---
-## Result
+## Result (TODO)
