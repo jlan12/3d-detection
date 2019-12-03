@@ -1,33 +1,41 @@
----
-title: 'Project documentation template'
-disqus: hackmd
----
 
 3D object detection 
 ===
 ## Description
 
-#TODO
-
+---
 ## Table of Content
+- [3D object detection](#3d-object-detection)
+  - [Description](#description)
+  - [Table of Content](#table-of-content)
+  - [Dataset](#dataset)
+  - [Prerequisites](#prerequisites)
+  - [### System Requirements](#-system-requirements)
+  - [### Necessary Packages and Libraries](#-necessary-packages-and-libraries)
+  - [Expected Directory Structure](#expected-directory-structure)
+  - [Training](#training)
+  - [Testing](#testing)
+  - [Result](#result)
 
-[TOC]
-
+---
 
 ## Dataset
-Data from: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
+KITII dataset: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
+
+---
 
 ## Prerequisites
-#### System Requirements
+
+### System Requirements
 ---
-1. Linux
-2. Python 3.5.3
-4. CUDA 10.0.130
-5. Tensorflow 2.2.4 (?)
-6. Pytorch 1.4.0
+* Linux
+* Python 3.5.3
+* CUDA 10.0.130
+* Tensorflow 2.2.4 (?)
+* Pytorch 1.4.0
 
 
-#### Necessary Packages and Libraries
+### Necessary Packages and Libraries
 ---
 1. Install [CUDA](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 2. Install [TensorFlow](https://www.tensorflow.org/install/)
@@ -41,8 +49,7 @@ Data from: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
     cd keras
     sudo python setup.py install
     ```
-4. Install **mmcv**
-    Install pytorch + torchvision and its dependencies
+4. Install **mmcv** and **pytorch** 
 
     ```bash
     pip install mmcv(*** Richard HELP!!!!!! ***)
@@ -60,13 +67,8 @@ Data from: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
     pip install six numpy scipy Pillow matplotlib scikit-image opencv-python imageio Shapely
     pip install imgaug
     ```
-#### Convert Data from Kitti label format to COCO JSON format
-To convert from KITTI training dataset format and labels to a COCO JSON call cocogenesis.py 
 
-```bash
-python cocogenesis.py --imagedir=${IMAGE_DIR} --annopath=${ANNO_DIR}
-```
---- All content below should be modified---
+---
 ## Expected Directory Structure
 mmdetection
 ├── mmdet
@@ -77,12 +79,8 @@ mmdetection
 │   │   ├── annotations
 │   │   ├── $path to images$
 
-
-## Config file overview
-
-Before training or testing, the config file must to defined in configs/ for each specific task (2D bounding box detector and/or segmentation), and for each dataset. The path to the config file will be used to run the model for training or testing.
-
-### Training (Kitti 2D Bounding Box)
+---
+## Training 
 
 The config file is located at configs/cascade_rcnn_x101_64x4d_fpn_1x_kitti.py
 
@@ -104,47 +102,8 @@ Command line to start training:
 ```
 where ${GPU_NUM} is the number of gpus to train on.
 
-## Testing (2D Bounding Box)
+---
+## Testing 
 
-Use the same config file as for training
-Command line to start testing/inferencing
-```bash
-./tools/dist_test.sh configs/cascade_rcnn_x101_64x4d_fpn_1x_kitti.py ${WEIGHTS_PATH} ${GPU_NUM} --out ${OUTPUT_PATH} --eval bbox 
-```
-${WEIGHTS_PATH} is the path to the weights that are trained. If the model was trained, the path should be in `work_dirs/cascade_rcnn_x101_64x4d_fpn_1x_kitti/latest.pth`
-
-${OUTPUT_PATH} should have a file extension that would represent a pickle file
-
-## Testing (Instance Segmentation)
-
-The config file is located at configs/htc_mask.py
-The config was modified for use to generate segmentation and additional bounding boxes for our dataset
-Command Line to start inference
-```bash
-./tools/dist_test/sh configs/htc_mask.py ${WEIGHTS_PATH} ${GPU_NUM} -- ${OUTPUT_PATH} --eval bbox seg
-```
-where weights path should be the path to the instance segmentation weights, it is in (what is this for?)
-
-## Using another dataset
-in mmdet/datasets/, you will need to create a custom dataset, based on the format you defined it on. 
-additionally, in the config file, you need to set and change the data dictionary based on the data it works on
-
-## Post Processing the Testing Output
-For the bounding boxes, the main output will be in the format ${OUTPUT_PATH}.output. Use this pickle file to pass to the next step.
-
-The pickle file is a list , length of all predicted bounding boxes of the dataset (there is an average 10 or so boxes per image, with a maximum of 100 boxes), of dictionaries.
-Each dictionary has the keys: 'image_id','bbox','score','category_id','conv'
-Pass this to pickleslicer to break it up into a format that fusion prefers
-
-How to read the pickle file?
-```python
-import pickle as pkl
-file=pkl.load(open("${PICKLEFILE}",'rb'))
-```
-
-
-What?
-Yeah I dont know why we preprocessed for a preprocessor for a preprocessor.
-WHy?
-We didn't agree on a format that was flexible ok? Stop asking questions. 
-
+---
+## Result
