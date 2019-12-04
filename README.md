@@ -114,7 +114,7 @@ python3 driver.py detect <checkpoint> <output file path>
 ```
 ### For the dimension prediction model:
 ```bash
-#TODO
+Not implemented
 ```
 ---
 ## Training results
