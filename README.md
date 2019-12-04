@@ -2,9 +2,10 @@
 3D Object Detection 
 ===
 ## Description (TODO)
-#### 3D object detection is a First-year Innocation and Research Experience(FIRE), Captical One Machine Learning (COML) project, authered by Richard Gao, Jerry Lan, Vladimir Leung, Siyuan Peng. Our research educator is Dr. Raymond Tu.
+3D object detection is our First-year Innocation and Research Experience(FIRE) Capital One Machine Learning (COML) project, under the guidance of our research educator Dr. Raymond Tu. This project was created contibuted to equally by Richard Gao, Jerry Lan, Vladimir Leung, Siyuan Peng.
 
-#### We break the task of monocular 3d object detection into three parts: predicting angle, predicting dimention and predicting location. The following codes are mainly for predicting angle. ** more here **
+We attempt to break the task of monocular 3d object detection into three parts: predicting the angle, the dimention and the location. We were succcessfully able to predict angle and had some progress in predicting dimension.
+
 ---
 ## Table of Contents
 - [3D object detection](#3d-object-detection)
@@ -31,9 +32,9 @@ KITTI dataset: http://www.cvlibs.net/datasets/kitti/eval_3dobject.php
 ### System Requirements
 ---
 * Linux
-* Python 3.5.3
-* CUDA 10.0.130
-* Tensorflow 2.2.4 (?)
+* Python 3.5+
+* CUDA 10
+* Tensorflow-gpu
 * Pytorch 1.4.0
 
 
@@ -117,15 +118,31 @@ python3 driver.py detect <checkpoint> <output file path>
 ```
 ---
 ## Training results
+<details>
+<summary>For the alpha model</summary>
 
-### For the alpha model
+|||
+--|--
+![](https://i.imgur.com/k7dfn4k.png)|![](https://i.imgur.com/IxPuhZd.png)
+</details>
+<details>
+<summary>For the dimension model</summary>
 
+|||
+--|--
+![](https://i.imgur.com/ewvd5nZ.png)|![](https://i.imgur.com/naKTAtq.png)
+</details>
+## Visualization results
 
-### For the dimension model
-![](https://i.imgur.com/ewvd5nZ.png)
-![](https://i.imgur.com/naKTAtq.png)
+### The alpha prediction
+|||
+--|--
+![](https://i.imgur.com/AYvdRx7.png)|![](https://i.imgur.com/BW02PQi.png)
+
 ---
-## Conclusion (TODO)
+## Conclusion 
+From our alpha prediction results, it appears that the model produces sufficient results for a mostly accurate prediction of the alpha. On the validation set, it had over a .9 accuracy, which is very statistically significant as we predicted on 32 categories. 
+On the dimension model, we had more varying results as the model had significant issues with overfitting.
 
 ---
 ## Reference
