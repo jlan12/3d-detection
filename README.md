@@ -1,7 +1,7 @@
 
 3D Object Detection 
 ===
-## Description (TODO)
+## Description
 3D object detection is our First-year Innocation and Research Experience(FIRE) Capital One Machine Learning (COML) project, under the guidance of our research educator Dr. Raymond Tu. This project was created contibuted to equally by Richard Gao, Jerry Lan, Vladimir Leung, Siyuan Peng.
 
 We attempt to break the task of monocular 3d object detection into three parts: predicting the angle, the dimention and the location. We were succcessfully able to predict angle and had some progress in predicting dimension.
