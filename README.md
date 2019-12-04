@@ -141,6 +141,7 @@ python3 driver.py detect <checkpoint> <output file path>
 
 ---
 ## Conclusion 
+
 From our alpha prediction results, it appears that the model produces sufficient results for a mostly accurate prediction of the alpha. On the validation set, it had over a .9 accuracy, which is very statistically significant as we predicted on 32 categories. 
 On the dimension model, we had more varying results as the model had significant issues with overfitting.
 
