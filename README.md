@@ -166,6 +166,7 @@ python3 driver.py detect <checkpoint> <output file path>
 --|--
 ![](https://i.imgur.com/ewvd5nZ.png)|![](https://i.imgur.com/naKTAtq.png)
 </details>
+
 ## Visualization Results
 
 ### The rotation prediction
