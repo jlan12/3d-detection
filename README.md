@@ -6,7 +6,6 @@
 
 We attempt to seperate the task of monocular 3d object detection into three parts: predicting the angle, the dimention and the location. We were succcessfully able to predict angle and had some progress in predicting dimension.
 
----
 For the rotation prediction model, we were inspired by GS3d to formulate the question as a categorical problem instead of a regression problem. We created our own loss function to handle close angles.
 
 Our primary contribution is in angle detection, for which we present a novel input scheme, classification formulation, and quality aware loss function.
