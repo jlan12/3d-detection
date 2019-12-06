@@ -24,7 +24,6 @@ Our primary contribution is in angle detection, for which we present a novel inp
   - [Training ](#Training)
   - [Inferencing](#Inferencing)
   - [Results](#Training-Results)
-  - [Conclusion](#Conclusion)
   - [References](#References)
 
 ---
@@ -173,10 +172,6 @@ python3 driver.py detect <checkpoint> <output file path>
 --|--
 ![](https://i.imgur.com/AYvdRx7.png)|![](https://i.imgur.com/BW02PQi.png)
 
----
-## Conclusion 
-From our rotation prediction results, it appears that the model produces sufficient results for a mostly accurate prediction of the rotation. On the validation set, it had over a .9 accuracy, which is very statistically significant as we predicted on 32 categories. 
-On the dimension model, we had more varying results as the model had significant issues with overfitting.
 
 ---
 ## Reference
