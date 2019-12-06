@@ -102,11 +102,11 @@ def getDetectionLoader(ry_cats = NUMBER_OF_ROT_Y_SECTORS,
               batchsize=4,
               jsonfp = "inputs/train_data.json", 
               segs_dir = "inputs/instance_segs/",
-             discard_cls=[0,1,2,4,7]):
+             discard_cls=[]):
     
     annos = json.load(open(jsonfp, mode='r'))
     # filter and keep the category_ids in lamda/
-    annos = annos if not discard_cls else list(filter(lambda anno:anno['category_id'] not in discard_cls, annos))
+    #annos = annos if not discard_cls else list(filter(lambda anno:anno['category_id'] not in discard_cls, annos))
     #Only predict on validation
     annos = annos[round(len(annos)*(1-split)):]
     '''

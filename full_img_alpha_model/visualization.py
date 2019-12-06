@@ -33,7 +33,7 @@ def make_endpoint(point, center, dims, rot_y):
     return point
 
 #Draws arrow representing the prediction angle and ground truth angle of a given instance (from label)
-def make_arrow(calibration, kitti_label, img, rot_y_pred):
+def make_arrow(calibration, kitti_label, img, rot_y_pred, dim_pred=None):
     """
     Creates display for ground truth angle and predication angle
     
@@ -52,8 +52,71 @@ def make_arrow(calibration, kitti_label, img, rot_y_pred):
 
     dims   = np.asarray([float(number) for number in line[8:11]])
     center = np.asarray([float(number) for number in line[11:14]])
-    center = np.append(center, 1)
     gt_rot_y = float(line[14])
+
+    box_3d = []
+    pred_3d = []
+    count = 0
+
+    for i in [1,-1]:
+        for j in [1,-1]:
+            for k in [0,1]:
+                point = np.copy(center)
+
+                point[0] = center[0] + i * dims[1]/2 * np.cos(-gt_rot_y+np.pi/2) + (j*i) * dims[2]/2 * np.cos(-gt_rot_y)
+                point[2] = center[2] + i * dims[1]/2 * np.sin(-gt_rot_y+np.pi/2) + (j*i) * dims[2]/2 * np.sin(-gt_rot_y)                  
+                point[1] = center[1] - k * dims[0]
+
+                count += 1
+
+                point = np.append(point, 1)
+                point = np.dot(cam_to_img, point)
+
+                point = point[:2]/point[2]
+                point = point.astype(np.int16)
+
+                box_3d.append(point)
+    if dim_pred is not None:
+        count = 0
+        for i in [1,-1]:
+            for j in [1,-1]:
+                for k in [0,1]:
+                    point = np.copy(center)
+
+                    point[0] = center[0] + i * dim_pred[1]/2 * np.cos(-gt_rot_y+np.pi/2) + (j*i) * dim_pred[2]/2 * np.cos(-gt_rot_y)
+                    point[2] = center[2] + i * dim_pred[1]/2 * np.sin(-gt_rot_y+np.pi/2) + (j*i) * dim_pred[2]/2 * np.sin(-gt_rot_y)                  
+                    point[1] = center[1] - k * dim_pred[0]
+
+                    count += 1
+
+                    point = np.append(point, 1)
+                    point = np.dot(cam_to_img, point)
+
+                    point = point[:2]/point[2]
+                    point = point.astype(np.int16)
+
+                    pred_3d.append(point)
+        for i in range(4):
+            point_1_ = pred_3d[2*i]
+            point_2_ = pred_3d[2*i+1]
+            disp = cv2.line(img, (point_1_[0], point_1_[1]), (point_2_[0], point_2_[1]), (255,0,0), 5)
+
+        for i in range(8):
+            point_1_ = pred_3d[i]
+            point_2_ = pred_3d[(i+2)%8]
+            disp = cv2.line(img, (point_1_[0], point_1_[1]), (point_2_[0], point_2_[1]), (255,0,0), 5)
+
+    for i in range(4):
+        point_1_ = box_3d[2*i]
+        point_2_ = box_3d[2*i+1]
+        disp = cv2.line(img, (point_1_[0], point_1_[1]), (point_2_[0], point_2_[1]), (0,255,0), 2)
+
+    for i in range(8):
+        point_1_ = box_3d[i]
+        point_2_ = box_3d[(i+2)%8]
+        disp = cv2.line(img, (point_1_[0], point_1_[1]), (point_2_[0], point_2_[1]), (0,255,0), 2)
+
+    center = np.append(center, 1)
     endpoint = [0, 0, 0, 0]
     gt_endpoint = [0, 0, 0, 0]
 
@@ -68,6 +131,7 @@ def make_arrow(calibration, kitti_label, img, rot_y_pred):
     disp = cv2.arrowedLine(img, center, gt_endpoint, color = (0, 255, 0), thickness = 5, tipLength = .2)
     
     return disp
+
 
 def draw_box3D(image, kitti_label, calib_file, color = (0, 255, 0)):
     #image is numpy image
